@@ -40,6 +40,7 @@
         font-size: 16px;
         font-weight: bold;
         transition: opacity 0.5s ease-in-out;
+        
     }
       *{
         font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
@@ -615,6 +616,7 @@ function Delete(i) {
             popup.style.display = "none";
         }, 500); // Wait for fade-out transition
     }, 500);
+    location.reload()
 }
 function Checked(i) {
     let completedTask = JSON.parse(localStorage.getItem("completedTask")) || [];
@@ -639,6 +641,9 @@ function Checked(i) {
             popup.style.display = "none";
         }, 500); // Wait for fade-out transition
     }, 500);
+    setTimeout(() => {
+    location.reload()
+    },500);
 }
 
 
