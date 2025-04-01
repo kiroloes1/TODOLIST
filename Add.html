@@ -407,7 +407,7 @@ main{
 
 
       
-      if (((taskName.value)&&(taskContent.value))=="")
+      if (taskName.value.trim() === "" || taskContent.value.trim() === "")
       return;
 
       event.preventDefault();
@@ -428,6 +428,7 @@ main{
       name:taskName.value,
       content:taskContent.value,
       status:false,
+     //date:"4/2/2025 , 12:12 pm" 
       date:date.toLocaleString(),
       day:date.toUTCString(),
       over:0
@@ -449,7 +450,7 @@ localStorage.removeItem("report")
     console.log( JSON.parse(localStorage.getItem("task")))
     setTimeout(() => {
       location.reload() 
-            }, 500);
+            }, 450);
 
     }
    // إضافة مستمع للحدث الذي يحدث عندما يتغير localStorage
