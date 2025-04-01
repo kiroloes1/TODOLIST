@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+<body>
+    <canvas id="myChart"></canvas>
+    <script>
+        const ctx = document.getElementById('myChart').getContext('2d');
+    
+        const myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+                datasets: [{
+                    label: 'Data per Day',
+                    data: [1000, 0, 0, 0, 0, 0, 0],
+                    borderColor: 'blue',
+                    borderWidth: 2,
+                    fill: true,
+                    pointRadius: 2
+                }]
+            },
+          
+        });
+    </script>
+    
+</body>
+</html>
