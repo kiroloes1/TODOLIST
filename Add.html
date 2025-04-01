@@ -25,6 +25,36 @@
 <link href="./dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
+
+
+.popup {
+            position: fixed;
+            top: -100px; /* يبدأ من الأعلى */
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #28a745; /* لون أخضر */
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 15px rgba(0, 255, 0, 0.3);
+            font-size: 18px;
+            font-weight: bold;
+            opacity: 0;
+            transition: all 0.5s ease-in-out;
+            z-index: 9999;
+        }
+
+        /* عند ظهور البوب أب */
+        .popup.show {
+            top: 20px; /* مكان الظهور */
+            opacity: 1;
+        }
+
+        /* عند الإخفاء */
+        .popup.hide {
+            top: -100px; /* يختفي للأعلى */
+            opacity: 0;
+        }
       *{
         font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
       }
@@ -349,10 +379,11 @@ main{
                 <textarea class="form-control" id="taskContent" rows="3" placeholder="Enter task details" required></textarea>
             </div>
            
-            <button type="submit" onclick="Add()" class="btn btn-secondary w-100">Add Task</button>
+            <button type="submit" onclick="Add() "class="btn btn-secondary w-100">Add Task</button>
         </form>
     </div>
-    
+    <div id="popup" class="popup">✅ Task Completed Successfully!</div>
+
   </main>
   </div>
 </div>
@@ -363,15 +394,36 @@ main{
 
   
   <script>
+
+    
+
+
+
     let taskContent=document.querySelector("#taskContent ");
     let taskName=document.querySelector("#taskName");
     let task=[]
     let date= new Date();
     function Add(){
+
+
       
       if (((taskName.value)&&(taskContent.value))=="")
       return;
+
       event.preventDefault();
+
+
+      let popup = document.getElementById("popup");
+            popup.innerHTML = "Task Completed Successfully";
+            popup.classList.add("show");
+
+            // بعد 3 ثوانٍ يبدأ في الاختفاء
+            setTimeout(() => {
+                popup.classList.add("hide");
+                setTimeout(() => {
+                    popup.classList.remove("show", "hide"); // إعادة الحالة الأصلية بعد الاختفاء
+                }, 500);
+            }, 500);
       let task2={
       name:taskName.value,
       content:taskContent.value,
@@ -395,7 +447,10 @@ localStorage.setItem("task", JSON.stringify(task));
 localStorage.removeItem("report")
 
     console.log( JSON.parse(localStorage.getItem("task")))
-    location.reload()
+    setTimeout(() => {
+      location.reload() 
+            }, 800);
+
     }
    // إضافة مستمع للحدث الذي يحدث عندما يتغير localStorage
 window.addEventListener('storage', function(event) {
