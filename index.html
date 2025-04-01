@@ -25,6 +25,22 @@
 <link href="./dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
+          .popup1 {
+        position: fixed;
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #09fd42; /* Light Green */
+        color: #000301; /* Dark Green */
+        padding: 10px 20px;
+        border-radius: 5px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        display: none; /* Hidden by default */
+        z-index: 1000;
+        font-size: 16px;
+        font-weight: bold;
+        transition: opacity 0.5s ease-in-out;
+    }
       *{
         font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
       }
@@ -413,9 +429,32 @@
     </main>
   </div>
 </div>
+<div id="popup" class="popup">
+  <p>Task moved to completed successfully!</p>
+  
+</div>
 
+<div id="popup1" class="popup1"></div>
 
 <style>
+   .popup {
+    position: fixed;
+            top: 10px; /* يبدأ من الأعلى */
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #165486; /* لون أخضر */
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 15px rgba(7, 152, 219, 0.3);
+            font-size: 18px;
+            font-weight: bold;
+            opacity: 0;
+            transition: all 0.5s ease-in-out;
+            z-index: 9999;
+    }
+
+  
   .delete-btn {
       background-color: red;
       color: white;
@@ -445,6 +484,9 @@
   </body>
 
 <script>
+
+
+
     // localStorage.clear()
     let date = new Date();
 
@@ -507,11 +549,24 @@ function Delete(i) {
     localStorage.setItem("task", JSON.stringify(task));
     updateAllTasks();
     display(task);
-    localStorage.removeItem("report")
-    location.reload()
+    localStorage.removeItem("report");
 
+    // Show the popup
+    let popup = document.getElementById("popup1");
+    popup.innerText = "Task deleted successfully!";
+    popup.style.backgroundColor = "#D4EDDA"; // Light Green
+    popup.style.color = "#155724"; // Dark Green
+    popup.style.display = "block";
+    popup.style.opacity = "1";
+
+    // Hide popup after 3 seconds
+    setTimeout(() => {
+        popup.style.opacity = "0";
+        setTimeout(() => {
+            popup.style.display = "none";
+        }, 500); // Wait for fade-out transition
+    }, 500);
 }
-
 function Checked(i) {
     let completedTask = JSON.parse(localStorage.getItem("completedTask")) || [];
     task[i].status = true;
@@ -521,9 +576,22 @@ function Checked(i) {
     localStorage.setItem("task", JSON.stringify(task));
     updateAllTasks();
     display(task);
-    localStorage.removeItem("report")
-    location.reload()
+    localStorage.removeItem("report");
+
+    // Show the popup
+    let popup = document.getElementById("popup");
+    popup.style.display = "block";
+    popup.style.opacity = "1";
+
+    // Hide popup after 3 seconds
+    setTimeout(() => {
+        popup.style.opacity = "0";
+        setTimeout(() => {
+            popup.style.display = "none";
+        }, 500); // Wait for fade-out transition
+    }, 500);
 }
+
 
 function updateAllTasks() {
     let completedTask = JSON.parse(localStorage.getItem("completedTask")) || [];
