@@ -328,20 +328,20 @@ let Dailytask = JSON.parse(localStorage.getItem("TaskDaily")) || [];
 let task = JSON.parse(localStorage.getItem("alltask")) || [];
 
 let filter = [];
+let seenDates = new Set();
 
-if (task.length > 0) {
-    let compare = task[0].date.split(",")[0];
-    filter.push(task[0]);
-
-    for (let i = 1; i < task.length; i++) {
-        if (task[i] && compare !== task[i].date.split(",")[0]) {
-            filter.push(task[i]);
-            compare = task[i].date.split(",")[0];
-        }
+for (let item of task) {
+    let date = item.date.split(",")[0];
+    if (!seenDates.has(date)) {
+        seenDates.add(date);
+        
+        filter.push(item);
     }
 }
 localStorage.setItem("filter", JSON.stringify(filter));
-console.log(filter);
+console.log(filter)
+
+
 
 function display() {
     listTask.innerHTML = "";
@@ -350,7 +350,8 @@ function display() {
         let productHTML = `
             <a onclick="details(${i})" class="task-card nav-link card-task m-4 shadow p-5 text-center border-2 rounded-4" href="alldetails.html">
                 <i class="fa-solid fa-list-check fs-1 mb-4"></i>
-                <h3 class="mb-3">${filter[i].day.split(",")[0]}</h3>
+                <h3 class="mb-3">Task:${i+1}</h3>
+                <h4 class="mb-2">day: ${filter[i].day}</h4>
                 <p style="font-style: italic;">Date: ${filter[i].date.split(",")[0]}</p>
             </a>
         `;
@@ -361,6 +362,7 @@ function display() {
 
 function details(i) {
     let date = filter[i].date.split(",")[0];
+ 
     localStorage.setItem("date", JSON.stringify(date));
 }
 
