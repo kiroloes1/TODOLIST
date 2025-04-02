@@ -154,8 +154,13 @@
   .main{
     width: 100vw;
   }
+ 
 }
 
+/* #progressChart{
+  display: flex ;
+  flex-direction: column;       
+} */
     </style>
 
     
@@ -294,29 +299,8 @@
 
   <main class="main my-3  ">
     <h2 class="my-3 text-center">Daily Progress Report</h2>
-      <div class=" text-black p-3" >
-    
-        <h3></h3>
-        <table class="table table-bordered text-center">
-
-            <thead class="table-dark">
-                <tr>
-                    <th>Task Name</th>
-                    <th>Date</th>
-                  
-                    <th>Daily Progress (%)</th>
-                </tr>
-            </thead>
-            <tbody class="tablebody">
-              
-   
-            </tbody>
-        </table>
-
-       
-        <canvas class="" id="progressChart"></canvas>
-       
-      </div>
+  
+      <div class="task-percentage m-5 justify-content-center d-flex flex-wrap" ></div>
   </main>
   </div>
 </div>
@@ -330,61 +314,71 @@
   
       
     <script>
-      let date=[]
-      
-      let listTask=document.querySelector(".tablebody")
-let report4 = JSON.parse(localStorage.getItem("report")) || [];
-for (let i=0;i<report4.length;i++){
-  let productHTML = `
-           <tr>
-                    <td>${report4[i].taskname}</td>
-                    <td>${report4[i].date}</td>
-                    
-                    <td>${report4[i].completionPerce}%</td>
-                </tr>
-        `;
 
-        listTask.innerHTML += productHTML;
-        date.push(report4[i].completionPerce)
-}
+let taskpercentage = document.querySelector(".task-percentage");
+let tasks = JSON.parse(localStorage.getItem("alltask")) || [];
+tasks = Array.isArray(tasks) ? tasks.flat() : [];
+
+// جمع التواريخ الفريدة
+let uniqueDates = [...new Set(tasks.map(task => task.date.split(",")[0]))];
+console.log(uniqueDates)
+// حساب نسبة الإنجاز لكل تاريخ
+let reportData = uniqueDates.map(date => {
+    let filteredTasks = tasks.filter(task => task.date.split(",")[0] === date);
+    console.log(filteredTasks)
+    let completedTasks = filteredTasks.filter(task => task.status).length;
+    console.log(completedTasks)
+    let completionPercentage = (completedTasks / filteredTasks.length) * 100;
+    
+    return {
+        date,
+        completionPercentage: completionPercentage.toFixed(2)
+    };
+});
+
+// مسح أي محتوى قديم قبل إضافة المخططات
+taskpercentage.innerHTML = "";
+
+// إنشاء مخططات منفصلة لكل تاريخ
+reportData.forEach((data, index) => {
+    // إنشاء عنصر div لكل مخطط
+    let chartContainer = document.createElement("div");
+    chartContainer.classList.add("chart-container");
+    chartContainer.style.width = "300px";
+    chartContainer.style.height = "300px";
+    chartContainer.style.margin = "20px";
+    
+    // إنشاء عنوان للمخطط
+    let chartTitle = document.createElement("h4");
+    chartTitle.innerText = `Completion for ${data.date}`;
+    chartContainer.appendChild(chartTitle);
+    
+    // إنشاء عنصر Canvas للرسم البياني
+    let canvas = document.createElement("canvas");
+    canvas.id = `chart-${index}`;
+    chartContainer.appendChild(canvas);
+    
+    // إضافة المخطط إلى الصفحة
+    taskpercentage.appendChild(chartContainer);
+
+    // رسم المخطط باستخدام Chart.js
+    new Chart(canvas.getContext('2d'), {
+        type: 'bar',
+        data: {
+            labels: ["Completed", "Remaining"],
+            datasets: [{
+                label: `Completion  for ${data.date} %`,
+                data: [data.completionPercentage, 100 - data.completionPercentage],
+                backgroundColor: ["#FFB300", "#424242"]
 
 
-
-
-
-
-
-      const barCtx = document.getElementById('progressChart').getContext('2d');
-      new Chart(barCtx, {
-          type: 'bar',
-          data: {
-              labels:Object.keys(report4),
-              datasets: [{
-                  label: 'Daily Progress (%)',
-                  data: date,
-                 
-                  borderWidth: 1
-              }]
-          },
-          options: {
-              responsive: true,
-              scales: {
-                  y: {
-                      beginAtZero: true,
-                      max: 100
-                  }
-              }
-          }
-      });
-
-
-
-
-      // إضافة مستمع للحدث الذي يحدث عندما يتغير localStorage
-window.addEventListener('storage', function(event) {
-    if (event.key === 'reload' && event.newValue === 'true') {
-        location.reload();
-    }
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false
+        }
+    });
 });
 
 

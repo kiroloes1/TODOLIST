@@ -434,17 +434,17 @@ filter.forEach(task => {
     }
 });
 
-let report4 = JSON.parse(localStorage.getItem("report")) || [];
+// let report4 = JSON.parse(localStorage.getItem("report")) || [];
 
-// تحقق من وجود التقرير بنفس التاريخ والاسم
-let existingReport = report4.some(existing => existing.date === report.date && existing.taskname === report.taskname);
+// // تحقق من وجود التقرير بنفس التاريخ والاسم
+// let existingReport = report4.some(existing => existing.date === report.date && existing.taskname === report.taskname);
 
-if (!existingReport) {
-    report4.push(report);
-    localStorage.setItem("report", JSON.stringify(report4));
-}
+// if (!existingReport) {
+//     report4.push(report);
+//     localStorage.setItem("report", JSON.stringify(report4));
+// }
 
-console.log(report4);
+// console.log(report4);
 
 let taskHTML3 = `
   <div class="m-5  p-4 text-center border-2 rounded-4" style="background: linear-gradient(to right , #222, black);">
