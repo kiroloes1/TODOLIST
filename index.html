@@ -544,18 +544,21 @@
 
 let x = 0;
 let tbody = document.querySelector(".tbody");
-let max = "0/0/0";
+let max = JSON.parse(localStorage.getItem("max"))||"0/0/0";
 let day = [];
 
 let task = JSON.parse(localStorage.getItem("task")) || [];
 let task4 = JSON.parse(localStorage.getItem("alltask")) || [];
 
+
+console.log(max)
 // تحديث المهام اليومية
 for (let i = 0; i < task4.length; i++) {
     let taskDate = task4[i].date.split(",")[0];
 
     if (max !== taskDate) {
         max = taskDate;
+        localStorage.setItem("max", JSON.stringify(max));
         day.push(taskDate);
         x++;
     }
@@ -565,9 +568,12 @@ for (let i = 0; i < task4.length; i++) {
     }
 }
 
+
+
 localStorage.setItem("noOfTaskDaily", x);
 localStorage.setItem("TaskDaily", JSON.stringify(day));
-
+// console.log(JSON.parse(localStorage.getItem("TaskDaily")))
+// console.log(day)
 function display(Task) {
     if (Task) {
         tbody.innerHTML = "";
