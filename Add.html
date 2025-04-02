@@ -354,7 +354,11 @@ main{
                 Add Task
               </a>
             </li>
-        
+            <a class="nav-link d-flex align-items-center gap-2" href="reports.html">
+              <svg class="bi"><use xlink:href="#graph-up"/></svg>
+              Reports
+            </a>
+          </li>
          
           </ul>
 
@@ -404,6 +408,7 @@ main{
     let taskName=document.querySelector("#taskName");
     let task=[]
     let date= new Date();
+   
     function Add(){
 
 
@@ -429,11 +434,12 @@ main{
       name:taskName.value,
       content:taskContent.value,
       status:false,
-     //date:"4/2/2025 , 12:12 pm" 
+     //date:"4/2/2025 , 12:12 pm", 
       date:date.toLocaleString(),
-      day:date.toUTCString(),
+      day:date.toString().split(" ")[0],
       over:0
     }
+  
     task.push(task2);
 if(( localStorage.getItem(("task")))!= null){
 
