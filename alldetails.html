@@ -380,7 +380,7 @@ window.onload = function displaySummary() {
                         <div class="task-card p-4 rounded-3">
                             <h3 class="mb-2">${task.name}</h3>
                             <p><strong><i class="fa-solid fa-calendar"></i> Date Added:</strong> ${task.date}</p>
-                            <p><strong><i class="fa-solid fa-calendar-days"></i> Day:</strong> ${task.day ? task.day.split(",")[0] : "N/A"}</p>
+                            <p><strong><i class="fa-solid fa-calendar-days"></i> Day:</strong> ${task.day ? task.day : "N/A"}</p>
                             <p><strong><i class="fa-solid fa-check"></i> Status:</strong> ${statusIcon}</p>
                             <p><strong><i class="fa-solid fa-file-alt"></i> Task Content:</strong> ${task.content}</p>
                         </div>
@@ -395,6 +395,7 @@ window.onload = function displaySummary() {
 
 
 let storedDate = JSON.parse(localStorage.getItem("date")) || "";
+console.log(storedDate)
 let x = 0;
 let totalTasks = 0; 
 let report={
@@ -413,6 +414,8 @@ tasks.forEach(task => {
         }
     }
 });
+console.log(totalTasks)
+console.log(x)
 
 
 let completionPercentage =0
@@ -420,6 +423,7 @@ if (totalTasks > 0) {
    completionPercentage  = ((x / totalTasks) * 100).toFixed(2);
 
 }
+console.log(completionPercentage)
 
 let filter = JSON.parse(localStorage.getItem("filter")) || [];
 filter.forEach(task => {
@@ -447,7 +451,7 @@ let taskHTML3 = `
     <p class="text-white fw-bold fs-4">Your achievement:</p>
     <p class="fs-3 fw-semibold text-white">
         <span class="fs-1 text-warning">
-            ${((x / tasks.length) * 100).toFixed(2)}%
+            ${completionPercentage}%
         </span>
     </p>
 </div>
