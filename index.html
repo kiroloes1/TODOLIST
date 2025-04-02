@@ -544,7 +544,7 @@
 
 let x = 0;
 let tbody = document.querySelector(".tbody");
-let max = JSON.parse(localStorage.getItem("max"))||"0/0/0";
+let max = date.toLocaleString().split(",")[0];
 let day = [];
 
 let task = JSON.parse(localStorage.getItem("task")) || [];
@@ -554,17 +554,19 @@ let task4 = JSON.parse(localStorage.getItem("alltask")) || [];
 console.log(max)
 // تحديث المهام اليومية
 for (let i = 0; i < task4.length; i++) {
-    let taskDate = task4[i].date.split(",")[0];
+    if (task4[i].date) { // التحقق من وجود التاريخ قبل تقسيمه
+        let taskDate = task4[i].date.split(",")[0];
 
-    if (max !== taskDate) {
-        max = taskDate;
-        localStorage.setItem("max", JSON.stringify(max));
-        day.push(taskDate);
-        x++;
-    }
-
-    if (taskDate !== date.toLocaleString().split(",")[0] && task[i]) {
-        task[i].over = 1;
+        if (max !== taskDate) {
+            let taskItem = task.find(t => t.date.split(",")[0] === taskDate); // البحث عن المهمة المتطابقة
+            
+            if (taskItem) {
+                taskItem.over = 1; // تحديث الحالة
+            }
+            
+            day.push(taskDate);
+            x++;
+        }
     }
 }
 
