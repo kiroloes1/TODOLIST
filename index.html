@@ -455,9 +455,13 @@
 <div class="d-flex justify-content-between">
   <h2>Daily tasks</h2>
 
-  <th><button onclick="deleteall()" class="delete-btn " onclick="DeleteTask(i)">
-    <i class="fa-solid fa-trash "></i>
-  </button></th>
+  <div class="d-flex justify-content-between">
+    <a class="btn btn-warning mx-2 d-flex  align-items-center" href="Add.html">
+      <i class="text-white fas fa-plus "></i> 
+    </a>
+    <button onclick="deleteall()" class="btn btn-danger mx-2  w-50" onclick="DeleteTask(i)">
+    <i class="fa-solid fa-trash w-100"></i>
+  </button></div>
 </div>
      <div id="myIframe"></div>
       <div class="table-responsive small">
