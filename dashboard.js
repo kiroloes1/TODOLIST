@@ -49,6 +49,8 @@ document.addEventListener("DOMContentLoaded", function () {
           }]
       },
       options: {
+        responsive: true,
+       
           plugins: {
               legend: { display: true },
               tooltip: { boxPadding: 3 },
