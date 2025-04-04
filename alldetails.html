@@ -367,6 +367,25 @@ window.onload = function displaySummary() {
     }
 
     let storedDate = JSON.parse(localStorage.getItem("date")) || "";
+
+    listSummary.innerHTML = "";
+for(let i=0;i<tasks.length;i++){
+  for(let j=i;j<tasks.length;j++){
+    if ((storedDate === tasks[i].date.split(",")[0] )&&(storedDate === tasks[j].date.split(",")[0] )){
+      if((tasks[i].name===tasks[j].name)&&(tasks[i].content===tasks[j].content)){
+        continue;
+      }
+      else if((tasks[i].name===tasks[j].name)&&(tasks[i].content!=tasks[j].content)){
+        tasks[i].content+=" "+tasks[j].content
+        tasks.splice(j,1)
+      }
+     
+    }
+  }
+}
+
+
+    
     tasks.forEach(task => {
             if (storedDate === task.date.split(",")[0]) {
                 let statusIcon = task.status 
