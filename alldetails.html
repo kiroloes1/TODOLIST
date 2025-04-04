@@ -383,8 +383,8 @@ for(let i=0;i<tasks.length;i++){
     }
   }
 }
-
-
+console.log(tasks)
+localStorage.setItem("alltask", JSON.stringify(tasks));
     
     tasks.forEach(task => {
             if (storedDate === task.date.split(",")[0]) {
@@ -425,7 +425,8 @@ let report={
 }
 
 
-tasks.forEach(task => {
+let taskss = JSON.parse(localStorage.getItem("alltask")) || [];
+taskss.forEach(task => {
     if (storedDate === task.date.split(",")[0]) { 
         totalTasks++; 
         if (task.status) { 
