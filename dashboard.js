@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // ترتيب التواريخ تنازليًا للحصول على آخر 10 تواريخ
-    let sortedDates = Object.keys(taskData).slice(0, 7);
+    let sortedDates = Object.keys(taskData).sort((a, b) => new Date(a) - new Date(b)).slice(0, 7);
     let filteredTaskData = {};
     sortedDates.forEach(date => {
         filteredTaskData[date] = taskData[date];
