@@ -45,25 +45,30 @@
       *{
         font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
       }
-      body::-webkit-scrollbar{
+      body::-webkit-scrollbar ,.scroll::-webkit-scrollbar{
         width: 5px;
         height: fit-content;
      
       }
-      body::-webkit-scrollbar-thumb{
+      .scroll::-webkit-scrollbar{
+       
+        height: 5px;
+     
+      }
+      body::-webkit-scrollbar-thumb,.scroll::-webkit-scrollbar{
        background-color:  #b3aca9;
       
       }
-      body::-webkit-scrollbar-thumb:hover{
+      body::-webkit-scrollbar-thumb:hover ,.scroll::-webkit-scrollbar:hover{
        background-color:  #c0bbbb;
       
       }
-      body::-webkit-scrollbar-track{
+      body::-webkit-scrollbar-track,.scroll::-webkit-scrollbar{
        background-color:#333231 ;
        
 
       }
-      body::-webkit-scrollbar-button{
+      body::-webkit-scrollbar-button,.scroll::-webkit-scrollbar{
         margin: 100px 0;
       }
       .bd-placeholder-img {
@@ -450,8 +455,10 @@
           </button>
         </div>
       </div>
-
-      <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
+<div class="scroll" style=" overflow-x: auto; width: 100%;">
+  <canvas class="my-4 w-100" id="myChart" style="min-width: 700px;"></canvas>
+</div>
+    
 <div class="d-flex justify-content-between">
   <h2>Daily tasks</h2>
 
@@ -587,7 +594,6 @@ function over(){
 }
 over()
 
-console.log(typeof (task4[0].over))
 localStorage.setItem("noOfTaskDaily", x);
 localStorage.setItem("TaskDaily", JSON.stringify(day));
 // console.log(JSON.parse(localStorage.getItem("TaskDaily")))
