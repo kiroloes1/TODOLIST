@@ -560,61 +560,72 @@ let day = [];
 let task = JSON.parse(localStorage.getItem("task")) || [];
 let task4 = JSON.parse(localStorage.getItem("alltask")) || [];
 
-console.log(task4)
+console.log(task)
 
 
 console.log(max)
 // تحديث المهام اليومية
 
 
-
-
-
-localStorage.setItem("noOfTaskDaily", x);
-localStorage.setItem("TaskDaily", JSON.stringify(day));
-// console.log(JSON.parse(localStorage.getItem("TaskDaily")))
-// console.log(day)
-function display(Task) {
-
-  for (let i = 0; i < task4.length; i++) {
-    if (task4[i].date) { // التحقق من وجود التاريخ قبل تقسيمه
-        let taskDate = task4[i].date.split(",")[0];
+function over(){
+  for (let i = 0; i < task.length; i++) {
+    if (task[i].date) { // التحقق من وجود التاريخ قبل تقسيمه
+        let taskDate = task[i].date.split(",")[0];
 
         if (max !== taskDate) {
-            let taskItem = task.find(t => t.date.split(",")[0] === taskDate); // البحث عن المهمة المتطابقة
+            // let taskItem = task.find(t => t.date.split(",")[0] === taskDate); // البحث عن المهمة المتطابقة
             
-            if (taskItem) {
-                taskItem.over = 1; // تحديث الحالة
-            }
+            
+                task[i].over = 1; // تحديث الحالة
+            
             
             day.push(taskDate);
             x++;
         }
     }
 }
-    if (Task) {
-        tbody.innerHTML = "";
-        for (let i = 0; i < Task.length; i++) {
-            if (Task[i].over == 1) continue;
+}
+over()
 
-            let productHTML = `
-            <tr>
-                <td>${i + 1}</td>
-                <td class="w-25">${Task[i].name}</td>
-                <td class="w-25">${Task[i].date}</td>
-                <td class="w-75">${Task[i].content}</td>
-                <td>${Task[i].status}</td>
-                <td><input type="checkbox" onclick="Checked(${i})" class="form-check r"></td>
-                <td class="del">
-                    <svg style="margin: 5px 20px" onclick="Delete(${i})" xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="bi bi-archive-fill" viewBox="0 0 16 16">
-                        <path d="M12.643 15C13.979 15 15 13.845 15 12.5V5H1v7.5C1 13.845 2.021 15 3.357 15zM5.5 7h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1 0-1M.8 1a.8.8 0 0 0-.8.8V3a.8.8 0 0 0 .8.8h14.4A.8.8 0 0 0 16 3V1.8a.8.8 0 0 0-.8-.8z"/>
-                    </svg>
-                </td>
-            </tr>
-            `;
-            tbody.innerHTML += productHTML;
-        }
-    }
+console.log(typeof (task4[0].over))
+localStorage.setItem("noOfTaskDaily", x);
+localStorage.setItem("TaskDaily", JSON.stringify(day));
+// console.log(JSON.parse(localStorage.getItem("TaskDaily")))
+// console.log(day)
+function display(Task) {
+    if (!Task || !Array.isArray(Task)) return;
+
+    tbody.innerHTML = ""; // تفريغ محتوى الجدول
+
+    Task.forEach((task, i) => {
+        if (task.over == 1) return; // تجاهل المهام المنتهية
+
+
+        console.log(`المهمة رقم ${i + 1}:`, Task[i].over, typeof Task[i].over);
+        let row = `
+        <tr>
+            <td>${i + 1}</td>
+            <td class="w-25">${task.name}</td>
+            <td class="w-25">${task.date}</td>
+            <td class="w-75">${task.content}</td>
+            <td>${task.status ? "✔️" : "❌"}</td>
+            <td>
+                <input 
+                    type="checkbox" 
+                    onclick="Checked(${i})" 
+                    class="form-check r"
+                    ${task.status ? "checked" : ""}
+                >
+            </td>
+            <td class="del">
+                <svg style="margin: 5px 20px" onclick="Delete(${i})" xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="bi bi-archive-fill" viewBox="0 0 16 16">
+                    <path d="M12.643 15C13.979 15 15 13.845 15 12.5V5H1v7.5C1 13.845 2.021 15 3.357 15zM5.5 7h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1 0-1M.8 1a.8.8 0 0 0-.8.8V3a.8.8 0 0 0 .8.8h14.4A.8.8 0 0 0 16 3V1.8a.8.8 0 0 0-.8-.8z"/>
+                </svg>
+            </td>
+        </tr>
+        `;
+        tbody.innerHTML += row;
+    });
 }
 
 function Delete(i) {
