@@ -609,8 +609,6 @@ function display(Task) {
 
 
 
-if(date.toLocaleString().split(",")[0]===task.date.split(",")[0]){
-
 
         // console.log(`المهمة رقم ${i + 1}:`, Task[i].over, typeof Task[i].over);
         let row = `
@@ -636,8 +634,6 @@ if(date.toLocaleString().split(",")[0]===task.date.split(",")[0]){
         </tr>
         `;
         tbody.innerHTML += row;
-
-      }
     });
 
 
@@ -646,6 +642,8 @@ if(date.toLocaleString().split(",")[0]===task.date.split(",")[0]){
         if (task.over == 1) return; // تجاهل المهام المنتهية
 
 
+
+        if(date.toLocaleString().split(",")[0]===task.date.split(",")[0]){
 
         
         // console.log(`المهمة رقم ${i + 1}:`, Task[i].over, typeof Task[i].over);
@@ -673,6 +671,7 @@ if(date.toLocaleString().split(",")[0]===task.date.split(",")[0]){
         </tr>
         `;
         tbody.innerHTML += row;
+      }
     });
 }
 
