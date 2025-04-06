@@ -14,32 +14,37 @@ document.addEventListener("DOMContentLoaded", function () {
     // lastDayOfWeek.setHours(23, 59, 59, 999);
 
     // تحضير البيانات
-  
-
-    let taskData = {};
-
-    // إنشاء مفاتيح من التواريخ مع قيمة ابتدائية 0
-    tasks.forEach(task => {
-        if (task.date) {
-            let date = task.date.split(",")[0] ;
-            taskData[date] = 0;
-        }
-    });
-   
+    let taskData = { Sun: 0, Mon: 0, Tue: 0, Wed: 0, Thu: 0, Fri: 0, Sat: 0 };
     let totalTasksThisWeek = 0;
     let completedTasksThisWeek = 0;
 
- 
+    const dayMap = {
+      Sunday: 'Sun', Monday: 'Mon', Tuesday: 'Tue', Wednesday: 'Wed',
+      Thursday: 'Thu', Friday: 'Fri', Saturday: 'Sat',
+      'الأحد': 'Sun', 'الإثنين': 'Mon', 'الثلاثاء': 'Tue',
+      'الأربعاء': 'Wed', 'الخميس': 'Thu', 'الجمعة': 'Fri', 'السبت': 'Sat'
+    };
 
- 
-tasks.forEach(task => {
-    if (task.date) {
-        let date = task.date.split(",")[0]
-        taskData[date] = (taskData[date] || 0) + 1;
-    }
-});
+    tasks.forEach(task => {
+      if (task.status && task.day && task.date) {
+        let taskDate = new Date(task.date);
+      
+          let rawDay = task.day.split(",")[0].trim();
+          let day = dayMap[rawDay] || rawDay;
 
+          if (taskData.hasOwnProperty(day)) {
+            taskData[day]++;
+            totalTasksThisWeek++;
+            completedTasksThisWeek++;
+          
+        }
+      }
+    });
 
+    // حساب النسبة
+    let completionPercentage = totalTasksThisWeek > 0
+      ? (completedTasksThisWeek / totalTasksThisWeek) * 100
+      : 0;
 
     // رسم الرسم البياني
     const ctx = document.getElementById('myChart').getContext('2d');
