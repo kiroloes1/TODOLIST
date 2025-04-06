@@ -5,13 +5,13 @@ document.addEventListener("DOMContentLoaded", function () {
     // تحديد بداية ونهاية الأسبوع الحالي
     let today = new Date();
     let dayOfWeek = today.getDay(); // 0 = الأحد
-    let firstDayOfWeek = new Date(today);
-    firstDayOfWeek.setDate(today.getDate() - dayOfWeek);
-    firstDayOfWeek.setHours(0, 0, 0, 0);
+    // let firstDayOfWeek = new Date(today);
+    // firstDayOfWeek.setDate(today.getDate() - dayOfWeek);
+    // firstDayOfWeek.setHours(0, 0, 0, 0);
 
-    let lastDayOfWeek = new Date(firstDayOfWeek);
-    lastDayOfWeek.setDate(firstDayOfWeek.getDate() + 6);
-    lastDayOfWeek.setHours(23, 59, 59, 999);
+    // let lastDayOfWeek = new Date(firstDayOfWeek);
+    // lastDayOfWeek.setDate(firstDayOfWeek.getDate() + 6);
+    // lastDayOfWeek.setHours(23, 59, 59, 999);
 
     // تحضير البيانات
     let taskData = { Sun: 0, Mon: 0, Tue: 0, Wed: 0, Thu: 0, Fri: 0, Sat: 0 };
@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
     tasks.forEach(task => {
       if (task.status && task.day && task.date) {
         let taskDate = new Date(task.date);
-        if (taskDate >= firstDayOfWeek && taskDate <= lastDayOfWeek) {
+      
           let rawDay = task.day.split(",")[0].trim();
           let day = dayMap[rawDay] || rawDay;
 
@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
             taskData[day]++;
             totalTasksThisWeek++;
             completedTasksThisWeek++;
-          }
+          
         }
       }
     });
