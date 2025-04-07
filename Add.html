@@ -431,7 +431,7 @@ let index=(localStorage.getItem("editIndex"))
         tasks[index].name= taskName.value;
         
         localStorage.setItem("task", JSON.stringify(tasks));
-       
+        localStorage.removeItem("editIndex")
         let popup = document.getElementById("popup");
             popup.innerHTML = "Task Update Successfully";
             popup.classList.add("show");
