@@ -483,6 +483,7 @@
               <th scope="col">Statue</th>
               <th scope="col">check</th>
               <th scope="col">delete</th>
+              <th scope="col">edit</th>
           
             </tr>
           </thead>
@@ -595,7 +596,22 @@ let task = JSON.parse(localStorage.getItem("task")) || [];
 let task4 = JSON.parse(localStorage.getItem("alltask")) || [];
 
 console.log(task)
+// 
+for (let i = 0; i < task.length; i++) {
+    if (task[i].date) { // التحقق من وجود التاريخ قبل تقسيمه
+        let taskDate = task[i].date.split(",")[0];
 
+        if ("4/5/2025"=== taskDate) {
+           
+            task.splice(i,1)
+            
+            
+        }
+    }
+}
+// 
+
+localStorage.setItem("task", JSON.stringify(task));
 
 console.log(max)
 // تحديث المهام اليومية
@@ -643,20 +659,27 @@ function display(Task) {
             <td class="w-25">${task.name}</td>
             <td class="w-25">${task.date}</td>
             <td class="w-75">${task.content}</td>
-            <td>${task.status ? "✔️" : "❌"}</td>
+            <td class="text-center align-content-center"
+            >${task.status ? "✔️" : "❌"}</td>
             <td>
                 <input 
                     type="checkbox" 
                     onclick="Checked(${i})" 
-                    class="form-check r"
+                    class="form-check r mt-2"
                     ${task.status ? "checked" : ""}
                 >
             </td>
-            <td class="del">
+            <td class="del text-center align-content-center">
                 <svg style="margin: 5px 20px" onclick="Delete(${i})" xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="bi bi-archive-fill" viewBox="0 0 16 16">
                     <path d="M12.643 15C13.979 15 15 13.845 15 12.5V5H1v7.5C1 13.845 2.021 15 3.357 15zM5.5 7h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1 0-1M.8 1a.8.8 0 0 0-.8.8V3a.8.8 0 0 0 .8.8h14.4A.8.8 0 0 0 16 3V1.8a.8.8 0 0 0-.8-.8z"/>
                 </svg>
             </td>
+            <td class="del text-center align-content-center">
+              <a onclick="edit(${i})" class="nav-link" href="Add.html">
+            <i class="fa-solid fa-pen-to-square"></i>
+            </a>
+            </td>
+
         </tr>
         `;
         tbody.innerHTML += row;
@@ -698,6 +721,10 @@ function display(Task) {
       }
      
     });
+}
+
+function edit(i){
+  localStorage.setItem("editIndex", i);
 }
 
 function Delete(i) {
