@@ -354,7 +354,7 @@ main{
                 Add Task
               </a>
             </li>
-         
+
          
           </ul>
 
@@ -380,7 +380,8 @@ main{
                 <textarea class="form-control" id="taskContent" rows="3" placeholder="Enter task details" required></textarea>
             </div>
            
-            <button type="submit" onclick="Add() "class="btn btn-secondary w-100">Add Task</button>
+            <button type="submit" onclick="Add() "class="add-btn btn btn-secondary w-100">Add Task</button>
+            <button type="submit" onclick="update()" class="update-btn btn btn-secondary  update-btn w-100 d-none">Update Link</button>
         </form>
     </div>
     <div id="popup" class="popup">✅ Task Completed Successfully!</div>
@@ -402,9 +403,69 @@ main{
 
     let taskContent=document.querySelector("#taskContent ");
     let taskName=document.querySelector("#taskName");
+    let task4 = JSON.parse(localStorage.getItem("alltask")) || [];
+    let tasks = JSON.parse(localStorage.getItem("task")) || [];
+    let addbtn = document.querySelector(".add-btn");
+let updatebtn = document.querySelector(".update-btn");
+let index=(localStorage.getItem("editIndex"))
     let task=[]
     let date= new Date();
-   
+    console.log(index)
+  
+       
+   if(index!=null){
+    taskContent.value=tasks[index].content
+      taskName.value=tasks[index].name
+      
+      addbtn.classList.add("d-none")
+      updatebtn.classList.remove("d-none")
+   }
+
+
+
+    
+    
+    function update(){
+      event.preventDefault();
+        tasks[index].content= taskContent.value;
+        tasks[index].name= taskName.value;
+        
+        localStorage.setItem("task", JSON.stringify(tasks));
+       
+        let popup = document.getElementById("popup");
+            popup.innerHTML = "Task Update Successfully";
+            popup.classList.add("show");
+
+            // بعد 3 ثوانٍ يبدأ في الاختفاء
+           
+            setTimeout(() => {
+                popup.classList.add("hide");
+                setTimeout(() => {
+                    popup.classList.remove("show", "hide"); // إعادة الحالة الأصلية بعد الاختفاء
+                }, 500);
+            }, 500);
+
+            (taskName.value)="";
+            (taskContent.value)="";
+            setTimeout(() => {
+           
+      location.href="index.html";
+            }, 550);
+            
+         
+            window.addEventListener('storage', function(event) {
+    if (event.key === 'reload' && event.newValue === 'true') {
+        location.reload();
+        
+    }
+});
+        }
+
+
+
+
+
+
     function Add(){
 
 
@@ -430,12 +491,14 @@ main{
       name:taskName.value,
       content:taskContent.value,
       status:false,
-     //date:"4/2/2025 , 12:12 pm", 
-      date:date.toLocaleString(),
-      day:date.toString().split(" ")[0],
-      over:0
-    }
+  // date:"4/5/2025 , 12:12 pm", 
+    date:date.toLocaleString(),
   
+      day:date.toString().split(" ")[0],
+      over:0,
+      // repited:0
+    }
+
     task.push(task2);
 if(( localStorage.getItem(("task")))!= null){
 
@@ -453,7 +516,7 @@ localStorage.removeItem("report")
     console.log( JSON.parse(localStorage.getItem("task")))
     setTimeout(() => {
       location.reload() 
-            }, 450);
+            }, 350);
 
     }
    // إضافة مستمع للحدث الذي يحدث عندما يتغير localStorage
