@@ -631,6 +631,7 @@ localStorage.setItem("TaskDaily", JSON.stringify(day));
 // console.log(JSON.parse(localStorage.getItem("TaskDaily")))
 // console.log(day)
 function display(Task) {
+
     if (!Task || !Array.isArray(Task)) return;
 
     tbody.innerHTML = ""; // تفريغ محتوى الجدول
@@ -713,7 +714,7 @@ function display(Task) {
 }
 
 function edit(i){
-  localStorage.setItem("editIndex", i);
+  localStorage.setItem("editIndex", JSON.stringify(i));
 }
 
 function Delete(i) {
