@@ -652,12 +652,15 @@ function display(Task) {
             <td class="text-center align-content-center"
             >${task.status ? "✔️" : "❌"}</td>
             <td>
+              <div class=" d-flex m-3 align-content-center ">
+
                 <input 
                     type="checkbox" 
                     onclick="Checked(${i})" 
-                    class="form-check  d-flex m-3 align-content-center "
+                    class="form-check "
                     ${task.status ? "checked" : ""}
                 >
+                </div>
             </td>
             <td class="del text-center align-content-center">
                 <svg style="margin: 5px 20px" onclick="Delete(${i})" xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="bi bi-archive-fill" viewBox="0 0 16 16">
