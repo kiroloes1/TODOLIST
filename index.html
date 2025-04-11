@@ -256,6 +256,28 @@
             border-radius: 5px;
         }
 
+  @media print {
+  body {
+    background-color: #121212 !important; /* dark background */
+    color: white;              /* light text */
+  }
+
+  /* تأكد إن كل العناصر المهمة برضو متناسبة مع الـ dark mode */
+  a {
+    color: #90caf9; /* لون روابط مناسب */
+  }
+
+  /* لو بتستخدم bootstrap أو dark classes، حاول تضمنها هنا */
+  .bg-dark {
+    background-color: #121212 !important;
+  }
+
+  .text-light {
+    color: white !important;
+  }
+}
+
+
     </style>
 
     
@@ -264,7 +286,7 @@
     <!-- Custom styles for this template -->
     <link href="dashboard.css" rel="stylesheet">
   </head>
-  <body >
+  <body>
 
     <div class="overlay" id="overlay"></div>
     <div class="popup5" id="popup5">
@@ -446,8 +468,8 @@
         <h1 class="h2">Dashboard</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
           <div class="btn-group me-2">
-            <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
-            <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+            <button onclick="print1()" type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+            <button onclick="print1()"  type="button" class="btn btn-sm btn-outline-secondary">Export</button>
           </div>
           <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle d-flex align-items-center gap-1">
             <svg class="bi"><use xlink:href="#calendar3"/></svg>
@@ -719,6 +741,11 @@ function display(Task) {
     });
 }
 
+function print1() {
+  document.body.classList.add('dark-mode'); // أو أي كلاس بيفعّل الدارك
+  window.print();
+  document.body.classList.remove('dark-mode'); // اختيارياً ترجّع الشكل بعد الطباعة
+}
 function edit(i){
   localStorage.setItem("editIndex", JSON.stringify(i));
 }
