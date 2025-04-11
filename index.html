@@ -507,6 +507,7 @@
               <th scope="col">Content</th>
               <th scope="col">Statue</th>
               <th scope="col">check</th>
+              <th scope="col">checked tiem</th>
             
           
             </tr>
@@ -649,7 +650,7 @@ function display(Task) {
             <td class="w-25">${task.name}</td>
             <td class="w-25">${task.date}</td>
             <td class="w-75">${task.content}</td>
-            <td class="text-center align-content-center"
+            <td class="text-center align-content-center "
             >${task.status ? "✔️" : "❌"}</td>
             <td>
               <div class=" d-flex m-3 align-content-center ">
@@ -695,7 +696,7 @@ function display(Task) {
             <td>${Nn + 1}</td>
             <td class="w-25">${task.name}</td>
             <td class="w-25">${task.date}</td>
-            <td class="w-75">${task.content}</td>
+            <td >${task.content}</td>
             <td>${task.status ? "✔️" : "❌"}</td>
             <td>
                 <input 
@@ -706,6 +707,8 @@ function display(Task) {
                     ${task.status ? "checked" : ""}
                 >
             </td>
+            <td>${task.checked }</td>
+            
             
         </tr>
         `;
@@ -750,6 +753,7 @@ function Checked(i) {
     let completedTask = JSON.parse(localStorage.getItem("completedTask")) || [];
     task[i].status = true;
     completedTask.push(task[i]);
+    task[i].checked=date.toLocaleTimeString();
     task.splice(i, 1);
     localStorage.setItem("completedTask", JSON.stringify(completedTask));
     localStorage.setItem("task", JSON.stringify(task));
@@ -761,7 +765,11 @@ function Checked(i) {
     let popup = document.getElementById("popup");
     popup.style.display = "block";
     popup.style.opacity = "1";
-
+    console.log(date.toLocaleTimeString())
+ 
+     
+    
+  
     // Hide popup after 3 seconds
     setTimeout(() => {
         popup.style.opacity = "0";
@@ -772,6 +780,7 @@ function Checked(i) {
     setTimeout(() => {
     location.reload()
     },500);
+    
 }
 
 
