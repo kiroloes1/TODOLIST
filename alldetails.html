@@ -348,6 +348,8 @@ rotate:5deg ;
 
   </body>
 <script>
+ 
+  onload=displaySummary
 
 let taskpercentage = document.querySelector(".task-percentage");
 let listSummary = document.querySelector(".task-summary");
@@ -358,7 +360,7 @@ tasks = Array.isArray(tasks) ? tasks.flat() : [];
 let index = JSON.parse(localStorage.getItem("noOfTaskDaily")) || 0;
 
 
-window.onload = function displaySummary() {
+function displaySummary() {
     listSummary.innerHTML = "";
 
     if (!Array.isArray(tasks) || tasks.length === 0) {
@@ -415,6 +417,7 @@ localStorage.setItem("alltask", JSON.stringify(tasks));
         });
 };
 
+displaySummary();
 
 
 let storedDate = JSON.parse(localStorage.getItem("date")) || "";

@@ -367,9 +367,9 @@ reportData.forEach((data, index) => {
         data: {
             labels: ["Completed", "Remaining"],
             datasets: [{
-                label: `Completion  for ${data.date} %`,
+                label: `Completion  for ${data.date }  an day: ${tasks[index].day} %`,
                 data: [data.completionPercentage, 100 - data.completionPercentage],
-                backgroundColor: ["#FFB300", "#424242"]
+                backgroundColor: ["#ffff", "#824242"]
 
 
             }]
