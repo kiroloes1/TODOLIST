@@ -440,10 +440,13 @@
          
           </ul>
 
+
       
      
 
           <hr class="my-3">
+
+
 
           <!-- <ul class="nav flex-column mb-auto ">
             <li class="nav-item">
@@ -461,7 +464,11 @@
           </ul> -->
         </div>
       </div>
+      
+      
+      
     </div>
+ 
 
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -605,10 +612,12 @@
 
     // localStorage.clear()
     let date = new Date();
+ 
+  
 
 
-let n=0
-let Nn=0
+let n=0;
+let Nn=0;
 let x = 0;
 let tbody = document.querySelector(".tbody");
 let lbody = document.querySelector(".body");
@@ -618,14 +627,14 @@ let day = [];
 let task = JSON.parse(localStorage.getItem("task")) || [];
 let task4 = JSON.parse(localStorage.getItem("alltask")) || [];
 
-console.log(task)
+console.log(task);
 // 
 
 // 
 
 localStorage.setItem("task", JSON.stringify(task));
 
-console.log(max)
+console.log(max);
 // تحديث المهام اليومية
 
 
@@ -654,11 +663,11 @@ localStorage.setItem("TaskDaily", JSON.stringify(day));
 // console.log(JSON.parse(localStorage.getItem("TaskDaily")))
 // console.log(day)
 function display(Task) {
-  localStorage.removeItem("editIndex")
+  localStorage.removeItem("editIndex");
     if (!Task || !Array.isArray(Task)) return;
 
     tbody.innerHTML = ""; // تفريغ محتوى الجدول
-    lbody,innerHTML=""
+    lbody,innerHTML="";
     Task.forEach((task, i) => {
         if (task.over == 1) return; // تجاهل المهام المنتهية
 
